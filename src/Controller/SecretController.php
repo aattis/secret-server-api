@@ -53,7 +53,7 @@ class SecretController extends AbstractController
         if(!$thesecret || 
             $thesecret->getExpireAfterViews() < 1 ||
             $thesecret->isExpired()){
-            return new Response('Secret not found (No secret with this hash or secret expired)'.$thesecret->isExpired(), 404); 
+            return new Response('Secret not found (No secret with this hash or secret expired)', 404);
         }
 
         $entityManager = $doctrine->getManager();

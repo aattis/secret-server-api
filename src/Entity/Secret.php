@@ -141,12 +141,19 @@ class Secret
 
     public function createSecretXMLResponse()
     {
+        $expiresat;
+        if($this->getExpireAfter() == 0)
+            $expiresat = 'never';
+        else {
+            $expiresat = $this->getExpiresAt()->format('Y-m-d H:i:s');
+        }
+        
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';
         $xml .= '<Secret>';
         $xml .= '<hash>'.$this->getHash().'</hash>';
         $xml .= '<secretText>'.$this->getSecret().'</secretText>';
         $xml .= '<createdAt>'.$this->getCreatedAt()->format('Y-m-d H:i:s').'</createdAt>';
-        $xml .= '<expiresAt>'.$this->getExpiresAt()->format('Y-m-d H:i:s').'</expiresAt>';
+        $xml .= '<expiresAt>'.$expiresat.'</expiresAt>';
         $xml .= '<remainingViews>'.$this->getExpireAfterViews().'</remainingViews>';
         $xml .= '</Secret>';    
         
